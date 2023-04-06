@@ -3,7 +3,7 @@ import { galleryItems } from './gallery-items.js';
 
 
 const galleryEl = document.querySelector(".gallery");
-const visible = document.querySelector('.basicLightbox');
+
 
 galleryItems.forEach((img) => {
     const image = `<div class="gallery__item">
@@ -20,26 +20,73 @@ galleryItems.forEach((img) => {
     galleryEl.insertAdjacentHTML("beforeend", image);
 });
 
-
 let instance = "";
 galleryEl.addEventListener("click", (e) => {
-     e.preventDefault();
-     if (e.target.nodeName !== "IMG") return; 
+  e.preventDefault();
+  if (e.target.nodeName !== "IMG") return; 
+  
+  
+  
+  // const onEscKeyPress = (e) => {
+  //   if (e.target.nodeName === "ESCAPE") {
+  //     instance.close();
+  //     console.log("escape");
+  //   } return;
+  // };
+  
+  (instance = basicLightbox.create(
+    `
+    <img src="${e.target.dataset.source}">
+    `,
 
-   instance =
-    basicLightbox.create(
-      `
-      <img src="${e.target.dataset.source}">
-      `)
-      instance.show();
-  if (instance.visible() && e.target.nodeName !== "ESCAPE") {
-    return;
-  }
-  instance.close();
-  console.log("escape");
-    });  
+    document.body.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") instance.close();
+    })
+    )),
+    instance.show();
     
-    
+  });  
+  
+  
+  // {
+  //   onShow: () =>
+  //     window.addEventListener("keydown", (e) => {
+  //       if (e.target.nodeName === "ESCAPE") {
+  //         instance.close();
+  //         console.log("escape");
+  //       }
+  //       return;
+  //     }),
+  // },
+
+  // instance.element().querySelector("a").onclick = instance.close
+  // {
+  //   onShow: () => window.addEventListener('keydown', onEscKeyPress),
+  // }
+  // window.addEventListener("keydown", (e) => {
+  //   if (e.target.nodeName === "ESCAPE") {
+  //     instance.close();
+  //     console.log("escape");
+  //   }
+  //   return;
+  // })
+// window.addEventListener("keydown", (e) => {
+//   if (e.target.nodeName === "ESCAPE") {
+//     instance.close();
+//     console.log("escape");
+//   }
+//   return;
+// }
+//   )
+
+// }
+  //   galleryEl.addEventListener("keyup", (e) => {
+  //     if (e.currentTarget.nodeName === "ESCAPE") {
+  //       instance.close();
+  //       console.log("escape");
+  //     }
+  // });
+
     // instance.addEventListener("keydown", (e) => {
     //   if (e.target.nodeName !== "ESCAPE") {
     //     return;

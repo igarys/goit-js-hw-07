@@ -39,8 +39,8 @@ galleryEl.addEventListener("click", (e) => {
     <img src="${e.target.dataset.source}">
     `,
 
-    document.body.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") instance.close();
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Escape") instance.close();
     })
     )),
     instance.show();
